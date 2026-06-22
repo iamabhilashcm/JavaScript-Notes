@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JS Notes - Variables & Data Types</title>
+
+  <link rel="stylesheet" href="C:\AA AutomationFiles\JavaScript Notes\css\styles.css">
+
+</head>
+
+<body>
+
+  <div class="page_title">JavaScript Basics Notes</div>
+
+  <div class="container">
+
+    <!-- VARIABLES -->
+    <div class="section">
+      <h1>Variables in JavaScript</h1>
+
+      <div class="qa">
+        <div class="question">What is a Variable?</div>
+        <div class="answer">
+          A <strong>variable</strong> is a container used to store data values in JavaScript.
+          It allows you to reuse and change data in your program.
+          <p>There are 3 variables</p>
+          <ol>
+            <li>var</li>
+            <li>let</li>
+            <li>const</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="impquestion">var (Old Way)</div>
+        <p class="answer">
+
+        <p><strong>var</strong> is function-scoped, can be re-declared and updated.</p>
+
+        <p>We can assign the list of variable</p>
+        <p>Example</p>
+        <p>var age,dateOfBirth,sex</p>
+
+        <pre>var name = "Rahul";</pre>
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="impquestion">let (Modern Way)</div>
+      <div class="answer">
+        <strong>let</strong> is block-scoped. You can update it but cannot re-declare it.
+        <pre>let age = 20;</pre>
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="impquestion">const (Constant)</div>
+      <div class="answer">
+        <strong>const</strong> is used for fixed values and cannot be changed.
+        <pre>const pi = 3.14;</pre>
+      </div>
+    </div>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>var</th>
+        <th>let</th>
+        <th>const</th>
+      </tr>
+      <tr>
+        <td>Scope</td>
+        <td>Function-scoped</td>
+        <td>Block-scoped</td>
+        <td>Block-scoped</td>
+      </tr>
+      <tr>
+        <td>Hoisting</td>
+        <td>Yes (initialized as undefined)</td>
+        <td>Yes (Temporal Dead Zone)</td>
+        <td>Yes (Temporal Dead Zone)</td>
+      </tr>
+      <tr>
+        <td>Redeclaration</td>
+        <td>Allowed</td>
+        <td>Not allowed</td>
+        <td>Not allowed</td>
+      </tr>
+      <tr>
+        <td>Reassignment</td>
+        <td>Allowed</td>
+        <td>Allowed</td>
+        <td>Not allowed</td>
+      </tr>
+      <tr>
+        <td>Must be initialized</td>
+        <td>No</td>
+        <td>No</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Best use</td>
+        <td>Avoid in modern JS</td>
+        <td>When value changes</td>
+        <td>Constant values</td>
+      </tr>
+    </table>
+
+    <pre>
+      var a = 10;
+      var a = 20;  // allowed
+      a = 30;      // allowed
+      </pre>
+
+    <pre>
+      let b = 10;
+      b = 20;      // allowed
+      // let b = 30; ❌ not allowed
+      </pre>
+
+    <pre>
+      const c = 10;
+      // c = 20;    ❌ not allowed
+      // const c = 30; ❌ not allowed
+      </pre>
+
+  </div>
+
+  <!-- DATA TYPES -->
+  <div class="section">
+    <h1>Data Types in JavaScript</h1>
+
+    <div class="qa">
+      <div class="question">What are Data Types?</div>
+      <div class="answer">
+        Data types define what type of value a variable can store.
+      </div>
+    </div>
+
+    <h2>Primitive Data Types</h2>
+
+    <div class="qa">
+      <div class="impquestion">String</div>
+      <div class="answer">
+        Used for text values.
+        <pre>let name = "Amit";</pre>
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="impquestion">Number</div>
+      <div class="answer">
+        Used for numeric values.
+        <pre>let age = 25;</pre>
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="impquestion">Boolean</div>
+      <div class="answer">
+        True or false values.
+        <pre>let isStudent = true;</pre>
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="impquestion">Undefined</div>
+      <div class="answer">
+        Variable declared but not assigned.
+        <pre>let x;</pre>
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="impquestion">Null</div>
+      <div class="answer">
+        Represents empty value.
+        <pre>let data = null;</pre>
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="impquestion">BigInt</div>
+      <div class="answer">
+        Used for very large numbers.
+        <pre>let big = 12345678901234567890n;</pre>
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="impquestion">Symbol</div>
+      <div class="answer">
+        Used to create unique values.
+        <pre>let id = Symbol("id");</pre>
+      </div>
+    </div>
+
+    <h2>Non-Primitive Data Types</h2>
+
+    <div class="qa">
+      <div class="impquestion">Object</div>
+      <div class="answer">
+        Stores data in key-value pairs.
+        <pre>
+let person = {
+  name: "Rahul",
+  age: 21
+};
+          </pre>
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="impquestion">Array</div>
+      <div class="answer">
+        Stores multiple values in one variable.
+        <pre>let fruits = ["apple", "banana", "mango"];</pre>
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="impquestion">Function</div>
+      <div class="answer">
+        A reusable block of strong.
+        <pre>
+function greet() {
+  console.log("Hello!");
+}
+          </pre>
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+
+</body>
+
+</html>
