@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="C:\AA AutomationFiles\JavaScript Notes\css\styles.css">
+
+</head>
+
+<body>
+  <div class="qa">
+    <div class="impquestion">Concatination</div>
+    <div class="answer">
+      <p>Concatenation means joining two or more things together end-to-end.</p>
+
+      <pre>
+        Example : 1 -- Using the + operator
+        let firstName = "John";
+        let lastName = "Doe";
+        
+        let fullName = firstName + " " + lastName;
+        
+        console.log(fullName);
+        
+        Output
+        John Doe
+      </pre>
+      <pre>
+        Example : 2 -- Using the concat() method
+        
+        let str1 = "Hello";
+        let str2 = " World";
+        
+        let result = str1.concat(str2);
+        
+        console.log(result);
+        
+        Output 
+        Hello World
+    </pre>
+
+      <pre>
+        Example: 3 -- Using template literals (modern JavaScript)
+
+        let firstName = "John";
+        let lastName = "Doe";
+
+        let fullName = `${firstName} ${lastName}`;
+
+        console.log(fullName);
+
+        Output
+        John Doe
+
+      </pre>
+
+      <p>Note that if one operand is a string, JavaScript converts the other value to a string during concatenation:</p>
+      <pre>
+        console.log("5" + 3);
+        
+        output 
+        53
+        
+        Here, 3 is converted to "3" and then joined with "5".
+      </pre>
+      <p>
+        In short: JavaScript string concatenation is the process of joining strings together, commonly using the +
+        operator or template literals.
+      </p>
+
+    </div>
+  </div>
+
+</body>
+
+</html>
