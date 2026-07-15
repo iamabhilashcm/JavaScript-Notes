@@ -962,7 +962,7 @@ use: {
             console.log(onlychars)  ---output -- AbcXYZ 
             
             
-          // partal printing of the string 
+          // partial printing of the string 
             
             const str = "@Abc123@#$$$%XYZ##"
             
@@ -983,6 +983,15 @@ use: {
           
             console.log(longest); --- output -- LMNOPQRST
           
+            
+          //Finding the shortest String
+          
+            const str = "Abcdefg XYZ LMNOPQRST";
+          
+            const shortest = str.match(/[a-zA-Z]+/g).reduce((a, b) => (a.length < b.length ? a : b)); 
+          
+            console.log(shortest);          
+            
             
           //Reverse String methods
           
@@ -1070,7 +1079,7 @@ use: {
             "email": "alice@example.com"
             }
             
-            Corresponding JSON Schema
+            Predefined JSON Schema (we compare this schema to the above)
             {
             "type": "object",
             "properties": {
@@ -1085,8 +1094,8 @@ use: {
             "type": "string",
             "format": "email"
             }
-            },
-            "required": ["name", "age"]
+            },  
+            "required": ["name", "email"]
             }
             
           </pre>
