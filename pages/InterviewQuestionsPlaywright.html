@@ -955,7 +955,7 @@ use: {
         <pre>
           // Printing only chars
           
-            const Str = "@Abc123@#$$$%XYZ##"
+            const str = "@Abc123@#$$$%XYZ##"
             
             const onlychars = str.replace(/[^a-zA-Z]/g, "")
             
@@ -964,15 +964,55 @@ use: {
             
           // partal printing of the string 
             
-            const Str = "@Abc123@#$$$%XYZ##"
+            const str = "@Abc123@#$$$%XYZ##"
             
-            const str1 = str1.replace(/[^a-zA-Z]+/g, "")
+            const str1 = str.match(/[a-zA-Z]+/g)
+            
+            console.log(str1) --- output Abc, XYZ
             
             console.log(str1[0]) --- output-- Abc
             
             console.log(str1[1]) --- output-- XYZ
             
             
+          // Finding the Longest string (THE BELOW METHOD WORKS FOR THE "n" number strings)
+          
+            const str = "Abcdefg XYZ LMNOPQRST";
+          
+            const longest = str.match(/[a-zA-Z]+/g).reduce((a, b) => (a.length > b.length ? a : b));
+          
+            console.log(longest); --- output -- LMNOPQRST
+          
+            
+          //Reverse String methods
+          
+            1. Reverse the entire string (characters)
+            
+              const str = "Abcdefg XYZ LMNOPQRST";
+              
+              const reversed = str.split("").reverse().join("");
+              
+              console.log(reversed); --- output -- TSRQPONML ZYX gfedcbA
+            
+            2. Reverse the order of the words
+              
+              const str = "Abcdefg XYZ LMNOPQRST";
+              
+              const reversed = str.split(" ").reverse().join(" ");
+              
+              console.log(reversed); --- output --- LMNOPQRST XYZ Abcdefg
+            
+            3. Reverse each word individually
+              
+              const str = "Abcdefg XYZ LMNOPQRST";
+              
+              const reversed = str
+              .split(" ")
+              .map(word => word.split("").reverse().join(""))
+              .join(" ");
+              
+              console.log(reversed); --- output -- gfedcbA ZYX TSRQPONML
+          
         </pre>
 
       </div>
@@ -1016,7 +1056,7 @@ use: {
     </div>
 
     <div class="qa">
-      <div class="pquestion">31. What is JSON Schema Validation? </div>
+      <div class="question">31. What is JSON Schema Validation? </div>
       <div class="answer">
         <p> JSON Schema validation is the process of checking whether a JSON document conforms to a predefined schema (a
           set of rules that describes the expected structure, data types, and constraints).</p>
@@ -1067,7 +1107,7 @@ use: {
     </div>
 
     <div class="qa">
-      <div class="pquestion">32.What is REST APIs </div>
+      <div class="question">32.What is REST APIs </div>
       <div class="answer">
         <p>
           <strong>REST API</strong> (Representational State Transfer Application Programming Interface)
