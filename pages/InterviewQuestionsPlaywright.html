@@ -1016,12 +1016,227 @@ use: {
     </div>
 
     <div class="qa">
-      <div class="pquestion">28.ADD the Question </div>
+      <div class="pquestion">31. What is JSON Schema Validation? </div>
+      <div class="answer">
+        <p> JSON Schema validation is the process of checking whether a JSON document conforms to a predefined schema (a
+          set of rules that describes the expected structure, data types, and constraints).</p>
+
+        <pre>
+            Example Json
+            
+            {
+            "name": "Alice",
+            "age": 30,
+            "email": "alice@example.com"
+            }
+            
+            Corresponding JSON Schema
+            {
+            "type": "object",
+            "properties": {
+            "name": {
+            "type": "string"
+            },
+            "age": {
+            "type": "integer",
+            "minimum": 0
+            },
+            "email": {
+            "type": "string",
+            "format": "email"
+            }
+            },
+            "required": ["name", "age"]
+            }
+            
+          </pre>
+
+        <p>What JSON Schema Can Validate</p>
+        <ul>
+          <li>Data types (string, number, boolean, array, object)</li>
+          <li>Required fields</li>
+          <li>String length</li>
+          <li>Numeric ranges</li>
+          <li>Array size</li>
+          <li>Allowed values (enum)</li>
+          <li>Email, URI, date formats</li>
+          <li>Nested objects and arrays</li>
+        </ul>
+
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="pquestion">32.What is REST APIs </div>
+      <div class="answer">
+        <p>
+          <strong>REST API</strong> (Representational State Transfer Application Programming Interface)
+          is a set of rules that allows two applications to communicate over HTTP.
+          It enables a client (such as a web application, mobile app, or automation script)
+          to send requests to a server and receive responses.
+        </p>
+        <p>REST API Methods</p>
+        <table border="1" cellspacing="0" cellpadding="8">
+          <thead>
+            <tr>
+              <th>HTTP Method</th>
+              <th>Purpose</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GET</td>
+              <td>Retrieve data</td>
+              <td>Get user details</td>
+            </tr>
+            <tr>
+              <td>POST</td>
+              <td>Create new data</td>
+              <td>Create a new user</td>
+            </tr>
+            <tr>
+              <td>PUT</td>
+              <td>Update entire resource</td>
+              <td>Update all user details</td>
+            </tr>
+            <tr>
+              <td>PATCH</td>
+              <td>Update part of a resource</td>
+              <td>Update only the email</td>
+            </tr>
+            <tr>
+              <td>DELETE</td>
+              <td>Remove data</td>
+              <td>Delete a user</td>
+            </tr>
+          </tbody>
+        </table>
+
+
+        <p>HTTP Status Codes</p>
+        <table border="1" cellspacing="0" cellpadding="8">
+          <thead>
+            <tr>
+              <th>Status Code</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>200</td>
+              <td>OK</td>
+            </tr>
+            <tr>
+              <td>201</td>
+              <td>Created</td>
+            </tr>
+            <tr>
+              <td>204</td>
+              <td>No Content</td>
+            </tr>
+            <tr>
+              <td>400</td>
+              <td>Bad Request</td>
+            </tr>
+            <tr>
+              <td>401</td>
+              <td>Unauthorized</td>
+            </tr>
+            <tr>
+              <td>403</td>
+              <td>Forbidden</td>
+            </tr>
+            <tr>
+              <td>404</td>
+              <td>Not Found</td>
+            </tr>
+            <tr>
+              <td>405</td>
+              <td>Method Not Allowed</td>
+            </tr>
+            <tr>
+              <td>409</td>
+              <td>Conflict</td>
+            </tr>
+            <tr>
+              <td>500</td>
+              <td>Internal Server Error</td>
+            </tr>
+            <tr>
+              <td>503</td>
+              <td>Service Unavailable</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Interview Definition (30-second Answer)</h3>
+
+        <p>
+          <strong>REST API</strong> stands for
+          <strong>Representational State Transfer Application Programming Interface</strong>.
+          It is an architectural style that allows a client and server to communicate over HTTP.
+          REST APIs use standard HTTP methods such as <strong>GET</strong>,
+          <strong>POST</strong>, <strong>PUT</strong>, <strong>PATCH</strong>, and
+          <strong>DELETE</strong> to perform CRUD operations. They are
+          <strong>stateless</strong>, meaning each request contains all the information
+          needed to process it, and they commonly exchange data in
+          <strong>JSON</strong> format.
+        </p>
+
+        <h3>How You Test REST APIs (QA Interview Answer)</h3>
+
+        <p>As a QA Engineer, I typically verify the following aspects of a REST API:</p>
+
+        <ul>
+          <li><strong>API Endpoint (URL):</strong> Verify that the request is sent to the correct endpoint.</li>
+
+          <li><strong>HTTP Method:</strong> Ensure the correct method is used (GET, POST, PUT, PATCH, DELETE).</li>
+
+          <li><strong>Request Headers:</strong> Validate headers such as Content-Type, Authorization, Accept, and custom
+            headers.</li>
+
+          <li><strong>Request Payload (JSON):</strong> Verify the request body contains valid JSON with the required
+            fields and
+            correct data types.</li>
+
+          <li><strong>Response Body:</strong> Validate that the response data is accurate, complete, and matches the
+            expected
+            values.</li>
+
+          <li><strong>HTTP Status Code:</strong> Check that the API returns the correct status code (200, 201, 400, 401,
+            404,
+            500, etc.).</li>
+
+          <li><strong>Response Time:</strong> Ensure the API responds within the acceptable performance threshold.</li>
+
+          <li><strong>JSON Schema Validation:</strong> Verify that the response follows the expected JSON schema,
+            including
+            required fields and data types.</li>
+
+          <li><strong>Authentication:</strong> Validate authentication mechanisms such as Bearer Token, OAuth, API Key,
+            or Basic
+            Authentication.</li>
+
+          <li><strong>Error Handling:</strong> Test invalid inputs, missing mandatory fields, invalid authentication,
+            and
+            unauthorized access to ensure proper error responses are returned.</li>
+        </ul>
+
+
+
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="pquestion">33.what is REST APIs </div>
       <div class="answer">
         Add answer
 
       </div>
     </div>
+
+
 
 
   </div>
