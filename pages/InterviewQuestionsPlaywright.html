@@ -132,6 +132,14 @@
     </div>
 
     <div class="qa">
+      <div class="question">Playwright cheat sheet </div>
+      <div class="answer">
+        <img src="../images/Playwright.png" alt="Playwright Cheat sheet" width="600">
+
+      </div>
+    </div>
+
+    <div class="qa">
       <div class="question">1. What is Playwright and how is it different from Selenium?</div>
       <div class="answer">
         Playwright is an end-to-end testing framework developed by Microsoft.
@@ -1320,23 +1328,7 @@ use: {
 
 
     <div class="qa">
-      <div class="impquestion">27.Explain your framework structure. </div>
-      <div class="answer">
-        <pre>
-          tests/
-          pages/
-          utils/
-          fixtures/
-          test-data/
-          reports/
-        </pre>
-
-      </div>
-    </div>
-
-
-    <div class="qa">
-      <div class="impquestion">28.What are Promises </div>
+      <div class="impquestion">28.What are states of Promises </div>
       <div class="answer">
         <p>Promises handle asynchronous operations.</p>
         <ul>
@@ -1348,23 +1340,22 @@ use: {
     </div>
 
     <div class="qa">
-      <div class="impquestion">29.What are the Common Assertions </div>
+      <div class="impquestion">
+        29. What are the Common Assertions?
+      </div>
+
       <div class="answer">
         <pre>
-          <ul>
-        <li> await expect(locator).toBeVisible(); </li>
-        
-        <li> await expect(locator).toHaveText('Success'); </li>
-       
-        <li> await expect(locator).toContainText('Hello'); </li>
-        
-        <li> await expect(locator).toBeEnabled(); </li>
-        
-        <li> await expect(page).toHaveURL(/dashboard/); </li>
-        
-        </ul>
+          await expect(locator).toBeVisible();
+          
+          await expect(locator).toHaveText('Success');
+          
+          await expect(locator).toContainText('Hello');
+          
+          await expect(locator).toBeEnabled();
+          
+          await expect(page).toHaveURL(/dashboard/);
         </pre>
-
       </div>
     </div>
 
@@ -1749,16 +1740,6 @@ use: {
       <div class="answer">
 
         <style>
-          body {
-            font-family: Arial, sans-serif;
-            margin: 30px;
-            background-color: #f9f9f9;
-          }
-
-          h2 {
-            color: #333;
-          }
-
           table {
             width: 100%;
             border-collapse: collapse;
@@ -1782,14 +1763,6 @@ use: {
             background-color: #f2f2f2;
           }
 
-          code {
-            background-color: #f4f4f4;
-            padding: 2px 4px;
-            border-radius: 4px;
-            font-family: Consolas, monospace;
-            color: #c7254e;
-          }
-
           .note {
             margin-top: 15px;
             font-size: 14px;
@@ -1804,13 +1777,13 @@ use: {
           <p>Playwright Wait Methods</p>
 
           <table>
-            <thead>
+            <thea d>
               <tr>
                 <th>Method</th>
                 <th>Purpose</th>
                 <th>Example</th>
               </tr>
-            </thead>
+            </thea>
             <tbody>
               <tr>
                 <td><code>waitForLoadState()</code></td>
@@ -1874,13 +1847,110 @@ use: {
 
 
     <div class="qa">
-      <div class="question">Playwright cheat sheet </div>
+      <div class="question">36.What is Playwright Architecture </div>
       <div class="answer">
-        <img src="images/Playwright.jpg" alt="Playwright Cheat sheet" width="500">
+
+        <p>
+          Playwright follows a <strong>Client → Playwright Server → Browser architecture.</strong>
+        </p>
+
+        <p>
+          First, I write my automation script using the Playwright API in languages like
+          TypeScript or JavaScript which are all we can call them as Client. When I execute the test, the API calls are
+          sent to the,Playwright Server, which is a Node.js process. then the
+          <strong>The Playwright Driver</strong>converts
+          these commands into browser-specific instructions and communicates directly with the
+          browser to perform actions such as clicking, typing, navigating, and validating
+          elements.
+        </p>
+
+        <p>
+          Inside the browser, Playwright uses three main objects:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Browser</strong> – Represents the browser instance.
+          </li>
+          <li>
+            <strong>Browser Context</strong> – Represents an isolated browser session with its own
+            cookies, cache, local storage, and session storage. This allows us to simulate
+            multiple users in the same browser.
+          </li>
+          <li>
+            <strong>Page</strong> – Represents a browser tab where all interactions such as
+            clicking, typing, and assertions are performed.
+          </li>
+        </ul>
+
+        <p>
+          One of Playwright's key features is <strong>Auto-Waiting</strong>. Before performing
+          actions like <code>click()</code> or <code>fill()</code>, Playwright automatically waits
+          for the element to:
+        </p>
+
+        <ul>
+          <li>Exist in the DOM</li>
+          <li>Be Visible</li>
+          <li>Be Enabled</li>
+          <li>Be Stable (not moving)</li>
+          <li>Be Ready for Interaction</li>
+        </ul>
+
+        <p>
+          This reduces flaky tests and eliminates the need for many explicit waits.
+        </p>
+
+        <p>
+          Overall, because Playwright communicates directly with browser engines, supports
+          isolated browser contexts, and provides built-in auto-waiting, it delivers faster,
+          more reliable, and efficient browser automation compared to traditional
+          WebDriver-based tools.
+        </p>
+
+        <hr>
+
+        <h2>Playwright Architecture Flow</h2>
+
+        <pre>
+        Test Script
+              │
+              ▼
+        Playwright API
+              │
+              ▼
+        Playwright Driver (Node.js)
+              │
+              ▼
+        Browser (Chromium / Firefox / WebKit)
+              │
+              ▼
+        Browser Context
+              │
+              ▼
+        Page
+              │
+              ▼
+        Web Application
+            </pre>
+
+        <hr>
+
+        <h2>30-Second Interview Answer</h2>
+
+        <p>
+          <strong>Playwright uses a Client → Driver → Browser architecture.</strong>
+          The test script sends commands to the Playwright Driver, which communicates
+          directly with Chromium, Firefox, or WebKit using native browser protocols.
+          Inside the browser, we create <strong>Browser Contexts</strong> for isolated user
+          sessions and <strong>Pages</strong> for browser tabs. Playwright also provides
+          built-in <strong>Auto-Waiting</strong>, making tests faster, more stable, and more
+          reliable without requiring browser drivers like ChromeDriver.
+        </p>
+
 
       </div>
     </div>
-
 
 
     <div class="qa">
@@ -1890,6 +1960,11 @@ use: {
 
       </div>
     </div>
+
+
+
+
+
 
   </div>
   </div>
