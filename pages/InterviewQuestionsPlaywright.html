@@ -149,6 +149,409 @@
           <li><b>Context:</b> Isolated session like incognito window</li>
           <li><b>Page:</b> A single tab inside a context</li>
         </ul>
+
+        <style>
+          body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 40px;
+            line-height: 1.7;
+            background: #f4f6f8;
+            color: #333;
+          }
+
+          .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #fff;
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+          }
+
+          h1 {
+            text-align: center;
+            color: #0b5394;
+          }
+
+          h2 {
+            color: #1565c0;
+            margin-top: 35px;
+            border-bottom: 2px solid #1565c0;
+            padding-bottom: 5px;
+          }
+
+          h3 {
+            color: #1b5e20;
+          }
+
+          pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            overflow: auto;
+            border-radius: 8px;
+            font-size: 15px;
+          }
+
+          code {
+            font-family: Consolas, monospace;
+          }
+
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+          }
+
+          table,
+          th,
+          td {
+            border: 1px solid #ccc;
+          }
+
+          th {
+            background: #1565c0;
+            color: white;
+            padding: 12px;
+          }
+
+          td {
+            padding: 12px;
+          }
+
+          .diagram {
+            background: #eef6ff;
+            border-left: 5px solid #1565c0;
+            padding: 20px;
+            font-family: Consolas;
+            white-space: pre;
+            margin: 20px 0;
+          }
+
+          ul li {
+            margin-bottom: 8px;
+          }
+
+          .note {
+            background: #fff8dc;
+            border-left: 5px solid orange;
+            padding: 15px;
+            margin-top: 20px;
+          }
+        </style>
+
+        </head>
+
+        <body>
+
+          <div class="container">
+
+            <h1>Playwright - Browser, Browser Context & Page</h1>
+
+            <p>
+              In Playwright, <b>Browser</b>, <b>Browser Context</b>, and <b>Page</b> form a hierarchy.
+              Understanding these three concepts is one of the most common Playwright interview questions.
+            </p>
+
+            <h2>Hierarchy</h2>
+
+            <div class="diagram">
+              Browser
+              ├── Context 1
+              │ ├── Page A
+              │ └── Page B
+              │
+              └── Context 2
+              ├── Page C
+              └── Page D
+            </div>
+
+            <hr>
+
+            <h2>1. Browser</h2>
+
+            <p>
+              A <strong>Browser</strong> is the actual browser instance such as Chromium,
+              Firefox, or WebKit.
+            </p>
+
+            <pre><code>
+const browser = await chromium.launch();
+</code></pre>
+
+            <h3>Think of it as:</h3>
+
+            <ul>
+              <li>Launching Google Chrome</li>
+              <li>Launching Microsoft Edge</li>
+              <li>Launching Firefox</li>
+            </ul>
+
+            <h3>Responsibilities</h3>
+
+            <ul>
+              <li>Starts the browser process.</li>
+              <li>Can contain multiple browser contexts.</li>
+              <li>Consumes the most system resources.</li>
+              <li>Needs to be closed after execution.</li>
+            </ul>
+
+            <h3>Example</h3>
+
+            <pre><code>
+const browser = await chromium.launch({
+    headless: false
+});
+</code></pre>
+
+            <hr>
+
+            <h2>2. Browser Context</h2>
+
+            <p>
+              A <strong>Browser Context</strong> is an isolated browser session.
+            </p>
+
+            <pre><code>
+            const context = await browser.newContext();
+            </code></pre>
+
+            <h3>Think of it as:</h3>
+
+            <ul>
+              <li>Chrome Incognito Window</li>
+              <li>Separate Browser Profile</li>
+            </ul>
+
+            <h3>Each Context Has Its Own</h3>
+
+            <ul>
+              <li>Cookies</li>
+              <li>Local Storage</li>
+              <li>Session Storage</li>
+              <li>Authentication State</li>
+              <li>Cache</li>
+            </ul>
+
+            <h3>Example</h3>
+
+            <pre><code>
+            const user1 = await browser.newContext();
+
+            const user2 = await browser.newContext();
+            </code></pre>
+
+            <p>
+              Both users are completely independent.
+            </p>
+
+            <hr>
+
+            <h2>3. Page</h2>
+
+            <p>
+              A <strong>Page</strong> represents a single browser tab.
+            </p>
+
+            <pre><code>
+            const page = await context.newPage();
+            </code></pre>
+
+            <h3>Think of it as:</h3>
+
+            <ul>
+              <li>A Chrome Tab</li>
+              <li>A Firefox Tab</li>
+            </ul>
+
+            <h3>Example</h3>
+
+            <pre><code>
+                const page = await context.newPage();
+
+                await page.goto("https://example.com");
+            </code></pre>
+
+            <h3>Interact With Elements</h3>
+
+            <pre><code>
+              await page.fill("#username", "john");
+
+              await page.click("#login");
+            </code></pre>
+
+            <hr>
+
+            <h2>Complete Example</h2>
+
+            <pre><code>
+              const { chromium } = require("playwright");
+
+(async () => {
+
+    const browser = await chromium.launch();
+
+    const context = await browser.newContext();
+
+    const page = await context.newPage();
+
+    await page.goto("https://example.com");
+
+    console.log(await page.title());
+
+    await browser.close();
+
+})();
+</code></pre>
+
+            <h3>Execution Flow</h3>
+
+            <ol>
+              <li>Launch Browser</li>
+              <li>Create Browser Context</li>
+              <li>Create Page</li>
+              <li>Navigate to Website</li>
+              <li>Perform Automation</li>
+              <li>Close Browser</li>
+            </ol>
+
+            <hr>
+
+            <h2>Why Browser Context Matters</h2>
+
+            <h3>Without Context</h3>
+
+            <pre><code>
+const page1 = await browser.newPage();
+
+const page2 = await browser.newPage();
+</code></pre>
+
+            <p>
+              Both pages share:
+            </p>
+
+            <ul>
+              <li>Cookies</li>
+              <li>Login Session</li>
+              <li>Local Storage</li>
+            </ul>
+
+            <h3>With Context</h3>
+
+            <pre><code>
+const context1 = await browser.newContext();
+
+const context2 = await browser.newContext();
+
+const page1 = await context1.newPage();
+
+const page2 = await context2.newPage();
+</code></pre>
+
+            <p>
+              Now both pages behave like completely different users.
+            </p>
+
+            <h3>Example</h3>
+
+            <ul>
+              <li>Context 1 → Admin User</li>
+              <li>Context 2 → Customer User</li>
+            </ul>
+
+            <p>
+              This is useful for multi-user testing like Chat Applications,
+              Banking Systems, or E-commerce applications.
+            </p>
+
+            <hr>
+
+            <h2>Real-World Analogy</h2>
+
+            <table>
+
+              <tr>
+                <th>Playwright</th>
+                <th>Real World</th>
+              </tr>
+
+              <tr>
+                <td>Browser</td>
+                <td>Google Chrome Application</td>
+              </tr>
+
+              <tr>
+                <td>Browser Context</td>
+                <td>Incognito Window / Separate Browser Profile</td>
+              </tr>
+
+              <tr>
+                <td>Page</td>
+                <td>Browser Tab</td>
+              </tr>
+
+            </table>
+
+            <hr>
+
+            <h2>Relationship</h2>
+
+            <div class="diagram">
+              Browser
+              ↓
+              Browser Context
+              ↓
+              Page
+            </div>
+
+            <hr>
+
+            <h2>Interview Summary</h2>
+
+            <table>
+
+              <tr>
+                <th>Object</th>
+                <th>Purpose</th>
+                <th>Can Contain</th>
+              </tr>
+
+              <tr>
+                <td>Browser</td>
+                <td>Launches the browser</td>
+                <td>Multiple Contexts</td>
+              </tr>
+
+              <tr>
+                <td>Browser Context</td>
+                <td>Creates isolated user sessions</td>
+                <td>Multiple Pages</td>
+              </tr>
+
+              <tr>
+                <td>Page</td>
+                <td>Represents a browser tab where automation happens</td>
+                <td>Web Elements</td>
+              </tr>
+
+            </table>
+
+            <div class="note">
+              <strong>Interview Tip:</strong><br><br>
+
+              <b>Browser</b> is the browser application.<br>
+              <b>Browser Context</b> is an isolated browser session (similar to an Incognito window).<br>
+              <b>Page</b> is a browser tab where all Playwright actions such as <code>goto()</code>,
+              <code>click()</code>, and
+              <code>fill()</code> are performed.
+            </div>
+
+          </div>
+
+        </body>
+
+
       </div>
     </div>
 
@@ -161,10 +564,25 @@
         <strong>Enabled</strong>
         before performing any actions,
         reducing the need for manual waits.
+        <p>
+          Auto-waiting is one of Playwright's most powerful features. It automatically waits for elements to become
+          ready before
+          performing actions like click(), fill(), check(), or selectOption(). This eliminates the need to add
+          unnecessary sleep()
+          or manual waits, making tests faster and more reliable.
+        </p>
 
-        <p>while finding the element in the DOM, it will check in the dom is the element is present or not,
-          if present it will automatically waits for element to be visible stable and enables and if needed it will
-          automatically scroll into the view </p>
+        <p>
+          Before performing an action, Playwright checks that the element is:
+
+        <ul>
+          <li>✅ <strong>is it Present in the DOM</strong> The element exists in the Document Object Model (DOM).</li>
+          <li>✅ <strong>is it Visible</strong> The element is visible to the user (not hidden).</li>
+          <li>✅ <strong>is it Stable</strong> The element is not moving, animating, or changing position.</li>
+          <li>✅ <strong>is it Enabled</strong> The element is enabled and can be interacted with (not disabled).</li>
+        </ul> then performs action
+        </p>
+
       </div>
     </div>
 
@@ -311,28 +729,29 @@ expect(response.status()).toBe(200);
         <p> we should use the difined "const name" instead of
           page. to locate the locators on the new tab</p>
         <pre>
-const [newPage] = await Promise.all([
-  context.waitForEvent('page'),
-  page.click('a[target="_blank"]')
-]);
+          const [newPage] = await Promise.all([
+          context.waitForEvent('page'),
+          page.click('a[target="_blank"]')
+          ]);
+          
         Example: 1
-        const [newTab] = await Promise.all([
-        page.context().waitForEvent("page"),
-        page.getByLabel("REDMI A7 Pro 5G (Black, 4GB RAM, 64GB Storage").click(),
+        const [newTab] = await Promis e.all([
+          page.context().waitForEvent("page"),
+          page.getByLabel("Iphone 16 pro max").click(),
         ]);
   
          await newTab.waitForLoadState("domcontentloaded");
         
         // Validate product page
         await expect(
-        newTab.getByRole("heading", { name: "REDMI A7 Pro 5G (Black, 4GB" }),
+        newTab.getByRole("heading", { name: "Iphone 16 pro max" }),
         ).toBeVisible();
 
         
         Example: 2
             const [abhi] = await Promise.all([
             page.context().waitForEvent("page"),
-            page.getByLabel("Redmi Note 14 SE 5G, Crimson Art (6GB, 128GB)").click(),
+            page.getByLabel("Iphone 16 pro max").click(),
             ]);
             
             await abhi.waitForLoadState("domcontentloaded");
@@ -1326,13 +1745,151 @@ use: {
 
 
     <div class="qa">
-      <div class="question">33.what is REST APIs </div>
+      <div class="question">35. What are the different waitFor methods we have </div>
+      <div class="answer">
+
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f9f9f9;
+          }
+
+          h2 {
+            color: #333;
+          }
+
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+          }
+
+          th,
+          td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+          }
+
+          th {
+            background-color: #0078D7;
+            color: white;
+          }
+
+          tr:nth-child(even) {
+            background-color: #f2f2f2;
+          }
+
+          code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+            color: #c7254e;
+          }
+
+          .note {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #d9534f;
+            font-weight: bold;
+          }
+        </style>
+        </head>
+
+        <body>
+
+          <p>Playwright Wait Methods</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Purpose</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>waitForLoadState()</code></td>
+                <td>Wait for the page to reach a specific load state.</td>
+                <td><code>await page.waitForLoadState('load');</code></td>
+              </tr>
+
+              <tr>
+                <td><code>waitForURL()</code></td>
+                <td>Wait for the page URL to change.</td>
+                <td><code>await page.waitForURL('**/dashboard');</code></td>
+              </tr>
+
+              <tr>
+                <td><code>waitForEvent()</code></td>
+                <td>Wait for browser or page events.</td>
+                <td><code>await page.waitForEvent('popup');</code></td>
+              </tr>
+
+              <tr>
+                <td><code>waitForResponse()</code></td>
+                <td>Wait for a specific API response.</td>
+                <td><code>await page.waitForResponse(res => res.url().includes('/login'));</code></td>
+              </tr>
+
+              <tr>
+                <td><code>waitForRequest()</code></td>
+                <td>Wait for a specific API request.</td>
+                <td><code>await page.waitForRequest(req => req.url().includes('/login'));</code></td>
+              </tr>
+
+              <tr>
+                <td><code>waitForFunction()</code></td>
+                <td>Wait until a JavaScript condition becomes true.</td>
+                <td><code>await page.waitForFunction(() => window.appReady);</code></td>
+              </tr>
+
+              <tr>
+                <td><code>locator.waitFor()</code></td>
+                <td>Wait for a locator to reach a specific state.</td>
+                <td><code>await page.locator('#loader').waitFor({ state: 'hidden' });</code></td>
+              </tr>
+
+              <tr>
+                <td><code>waitForTimeout()</code></td>
+                <td>Pause execution for a fixed amount of time.</td>
+                <td><code>await page.waitForTimeout(3000);</code> <strong>(Not recommended for normal tests)</strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="note">
+            ⚠️ Note: Prefer Playwright's built-in auto-waiting or explicit waits such as
+            <code>waitForResponse()</code>, <code>waitForURL()</code>, or
+            <code>locator.waitFor()</code> instead of <code>waitForTimeout()</code>.
+          </p>
+
+      </div>
+    </div>
+
+
+    <div class="qa">
+      <div class="question">Playwright cheat sheet </div>
+      <div class="answer">
+        <img src="images/Playwright.jpg" alt="Playwright Cheat sheet" width="500">
+
+      </div>
+    </div>
+
+
+
+    <div class="qa">
+      <div class="question">36.what is REST APIs </div>
       <div class="answer">
         Add answer
 
       </div>
     </div>
-
 
   </div>
   </div>
